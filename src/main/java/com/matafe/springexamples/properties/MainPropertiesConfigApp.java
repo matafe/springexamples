@@ -13,14 +13,14 @@ import org.springframework.core.env.Environment;
 
 /**
  * <p>
- * Message Example
+ * Main Properties Configuration
  * 
  * @author Mauricio Tavares Ferraz
  */
-public class PropertiesConfig
+public class MainPropertiesConfigApp
 {
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(PropertiesConfig.class);
+			.getLogger(MainPropertiesConfigApp.class);
 
 	/**
 	 * @param args
@@ -34,7 +34,7 @@ public class PropertiesConfig
 		System.setProperty("config.file.path", extFilePath);
 
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"applicationContext-properties.xml", PropertiesConfig.class))
+				"applicationContext-properties.xml", MainPropertiesConfigApp.class))
 		{
 			AppConfigHolder config = context.getBean(AppConfigHolder.class);
 			ExtAppConfigHolder extConfig = context

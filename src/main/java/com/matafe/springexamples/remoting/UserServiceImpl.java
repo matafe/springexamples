@@ -14,7 +14,7 @@ import com.matafe.springexamples.common.User;
 
 /**
  * <p>
- * RMI User Service Impl
+ * User Service Impl
  * 
  * @author Mauricio Tavares Ferraz
  */

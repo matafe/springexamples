@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>
- * Config Holder
+ * App Config Holder
  * 
  * @author Mauricio Tavares Ferraz
  */

@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * <p>
- * Description
+ * Starts the RMI Server
  * 
  * @author Mauricio Tavares Ferraz
  */

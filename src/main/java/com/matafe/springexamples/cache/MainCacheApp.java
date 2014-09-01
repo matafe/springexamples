@@ -4,11 +4,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * <p>
- * Cache Example
+ * Main Cache Example
  * 
  * @author Mauricio Tavares Ferraz
  */
-public class CacheApp
+public class MainCacheApp
 {
 
 	/**
@@ -17,7 +17,7 @@ public class CacheApp
 	public static void main(String[] args)
 	{
 		try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-				"applicationContext-cache.xml", CacheApp.class))
+				"applicationContext-cache.xml", MainCacheApp.class))
 		{
 			MyService myService = context.getBean(MyService.class);
 			CacheService cacheService = context.getBean(CacheService.class);
