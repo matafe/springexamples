@@ -22,32 +22,40 @@ import org.springframework.util.StopWatch;
  * 
  * @author Mauricio Tavares Ferraz
  */
-public class ConcurrentTotalFileSizeCalculator {
-
+public class ConcurrentTotalFileSizeCalculator
+{
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ConcurrentTotalFileSizeCalculator.class);
 
-	class SubDirectoriesAndSize {
+	class SubDirectoriesAndSize
+	{
 		final long size;
 		final List<File> subDirectories;
 
 		public SubDirectoriesAndSize(final long totalSize,
-				final List<File> theSubDirs) {
+				final List<File> theSubDirs)
+		{
 			this.size = totalSize;
 			this.subDirectories = Collections.unmodifiableList(theSubDirs);
 		}
 	}
 
-	private SubDirectoriesAndSize getTotalAndSubDirs(final File file) {
+	private SubDirectoriesAndSize getTotalAndSubDirs(final File file)
+	{
 		long total = 0;
 		List<File> subDirectories = new ArrayList<File>();
-		if (file.isDirectory()) {
+		if (file.isDirectory())
+		{
 			File[] children = file.listFiles();
-			if (children != null) {
-				for (final File child : children) {
-					if (child.isFile()) {
+			if (children != null)
+			{
+				for (final File child : children)
+				{
+					if (child.isFile())
+					{
 						total += child.length();
-					} else {
+					} else
+					{
 						subDirectories.add(child);
 					}
 				}
@@ -58,18 +66,24 @@ public class ConcurrentTotalFileSizeCalculator {
 
 	private long getTotalSizeOfFilesInDir(final ExecutorService service,
 			final File file) throws InterruptedException, ExecutionException,
-			TimeoutException {
+			TimeoutException
+	{
 
-		try {
+		try
+		{
 			long total = 0;
 			List<File> directories = new ArrayList<File>();
 			directories.add(file);
-			while (!directories.isEmpty()) {
+			while (!directories.isEmpty())
+			{
 				List<Future<SubDirectoriesAndSize>> partialResults = new ArrayList<Future<SubDirectoriesAndSize>>();
-				for (final File directory : directories) {
+				for (final File directory : directories)
+				{
 					partialResults.add(service
-							.submit(new Callable<SubDirectoriesAndSize>() {
-								public SubDirectoriesAndSize call() {
+							.submit(new Callable<SubDirectoriesAndSize>()
+							{
+								public SubDirectoriesAndSize call()
+								{
 									return getTotalAndSubDirs(directory);
 								}
 							}));
@@ -77,7 +91,8 @@ public class ConcurrentTotalFileSizeCalculator {
 
 				directories.clear();
 
-				for (final Future<SubDirectoriesAndSize> partialResultFuture : partialResults) {
+				for (final Future<SubDirectoriesAndSize> partialResultFuture : partialResults)
+				{
 					SubDirectoriesAndSize subDirectoriesAndSize = partialResultFuture
 							.get(2, TimeUnit.MINUTES);
 					directories.addAll(subDirectoriesAndSize.subDirectories);
@@ -85,28 +100,35 @@ public class ConcurrentTotalFileSizeCalculator {
 				}
 			}
 			return total;
-		} finally {
+		} finally
+		{
 			service.shutdown();
 		}
 
 	}
 
 	private long getTotalSizeOfFilesInDir(final File file)
-			throws InterruptedException, ExecutionException, TimeoutException {
+			throws InterruptedException, ExecutionException, TimeoutException
+	{
 		ExecutorService service = Executors.newFixedThreadPool(100);
-		try {
+		try
+		{
 			return getTotalSizeOfFilesInDir(service, file);
-		} finally {
+		} finally
+		{
 			service.shutdown();
 		}
 	}
 
 	public static void main(final String[] args) throws InterruptedException,
-			ExecutionException, TimeoutException {
-		if (args.length == 0) {
+			ExecutionException, TimeoutException
+	{
+		if (args.length == 0)
+		{
 			LOGGER.debug("Usage example: ConcurrentTotalFileSizeCalculator {}",
 					"/opt");
-		} else {
+		} else
+		{
 			ConcurrentTotalFileSizeCalculator calculator = new ConcurrentTotalFileSizeCalculator();
 			StopWatch watch = new StopWatch();
 

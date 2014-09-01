@@ -4,8 +4,13 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	
-	<context:component-scan base-package="com.matafe.springexample.task" />
+
+	<context:component-scan base-package="com.matafe.springexamples">
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.common.*" />
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.task.*" />
+	</context:component-scan>
 
 	<bean id="taskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
