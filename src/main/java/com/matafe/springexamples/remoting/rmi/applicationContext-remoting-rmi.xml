@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.matafe.springexamples">
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.common.*" />
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.remoting.rmi.*" />
+	</context:component-scan>
+
+	<!-- RMI Server Declaration -->
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<!-- serviceName represents RMI Service Name -->
+		<property name="serviceName" value="UserService" />
+		<!-- service represents RMI Object(RMI Service Impl) -->
+		<property name="service" ref="userServiceImpl" />
+		<!-- serviceInterface represents RMI Service Interface exposed -->
+		<property name="serviceInterface" value="com.matafe.springexamples.remoting.UserService" />
+		<!-- defaults to 1099 -->
+		<property name="registryPort" value="1099" />
+
+	</bean>
+
+</beans>

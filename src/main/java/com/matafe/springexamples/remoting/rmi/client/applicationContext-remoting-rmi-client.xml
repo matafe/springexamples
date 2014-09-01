@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.matafe.springexamples">
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.common.*" />
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.remoting.rmi.client.*" />
+	</context:component-scan>
+	
+  <!-- RMI Client Declaration -->
+    <bean id="UserService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"> 
+        <!-- serviceUrl represents RMI Service Url called-->
+        <property name="serviceUrl" value="rmi://127.0.0.1:1099/UserService"/>
+        <!-- serviceInterface represents RMI Service Interface called -->
+        <property name="serviceInterface" value="com.matafe.springexamples.remoting.UserService"/>
+        <!-- refreshStubOnConnectFailure enforces automatic re-lookup of the stub if a call fails with a connect exception -->
+        <property name="refreshStubOnConnectFailure" value="true"/>
+ 
+    </bean>
+ 	
+
+</beans>

@@ -1,5 +1,8 @@
 My Spring Simple Examples
 =========================
-- Spring Executor API
-- Spring Cache API
-- Spring Properties Config
+- Spring Executor Example
+- Spring Cache Example
+- Spring Properties Configuration Example
+- Spring Remoting - RMI - Example
+- Spring Remoting - HTTP - Example (TODO)
+- ...
