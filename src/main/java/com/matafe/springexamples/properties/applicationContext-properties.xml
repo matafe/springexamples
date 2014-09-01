@@ -13,7 +13,7 @@
 			expression="com.matafe.springexample.config.*" />
 	</context:component-scan>
 	
-	<context:property-placeholder location="classpath:application.properties,classpath:persistence.properties"/>
+	<context:property-placeholder location="classpath:application.properties,classpath:persistence.properties,file:${config.file.path}"/>
 	
 	<!-- 
 	or
@@ -23,6 +23,7 @@
 			<list>
 				<value>classpath:application.properties</value>
 				<value>classpath:persistence.properties</value>
+				<value>file:${config.file.path}</value>
 			</list>
 		</property>
 	</bean>
