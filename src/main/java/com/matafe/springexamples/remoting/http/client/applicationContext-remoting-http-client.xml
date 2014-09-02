@@ -1,0 +1,31 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:component-scan base-package="com.matafe.springexamples">
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.common.*" />
+		<context:include-filter type="regex"
+			expression="com.matafe.springexample.remoting.http.client.*" />
+	</context:component-scan>
+	
+ 	<!-- Http Invoker Client Declaration -->
+    <bean id="UserService" class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <!-- serviceUrl demonstrates Http Service Url which is called-->
+        <property name="serviceUrl" value="http://localhost:8080/SpringExamples/remoting/UserService"/>
+        <!-- serviceInterface demonstrates Http Service Interface which is called -->
+        <property name="serviceInterface" value="com.matafe.springexamples.remoting.UserService"/>
+    </bean>	
+    
+    <bean id="HessianUserService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <!-- serviceUrl demonstrates Http Service Url which is called-->
+        <property name="serviceUrl" value="http://localhost:8080/SpringExamples/remoting/HessianUserService"/>
+        <!-- serviceInterface demonstrates Http Service Interface which is called -->
+        <property name="serviceInterface" value="com.matafe.springexamples.remoting.UserService"/>
+    </bean>	
+    
+   
+</beans>
